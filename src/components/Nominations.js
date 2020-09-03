@@ -1,39 +1,51 @@
 import React, { useEffect, useState } from 'react';
+import MovieCard from './core/MovieCard';
 
-const Nominations = () => {
+import { Image, Box } from "theme-ui";
 
-const [nominated, setNominated] = useState([]);
-  
-function removeNomination(movieID) {
-    if(nominated.includes(movieID)) {
-        console.log(nominated)
-        console.log(movieID)
-        // setNominated(nominated.filter(movie => movie !== movieID))
-        // console.log(nominated)
-    } else {
-        console.log("huh")
+const Nominations = ({ nominated, setNominated }) => {
+
+    const deleteNomination = (movie) => {
+        let validation = nominated.some((i) => i.imdbID.includes(movie.imdbID));
+        if(validation) {
+            
+            console.log(localStorage.getItem("nominations"));
+            let filteredNoms = nominated.filter(i => i.imdbID !== movie.imdbID)
+            setNominated(filteredNoms);
+
+        } else {
+            console.log("This movie hasn't been nominated, or there's an error");
+        }
     }
-}
 
-  useEffect(() => {
-      let data = localStorage.getItem("nominations");
-      let noms = JSON.parse(data);
-      setNominated(noms);
-  }, []);
+    useEffect(() => {
+        localStorage.setItem("nominations", JSON.stringify(nominated));
+    }, [nominated])
 
   return (
     <div>
-        <h1> THESE ARE NOMINATIONS! </h1>
-        {/* {nominated.map(movie => {
-            return (
-                <div>
-                <h1>{movie.Title}</h1>
-                <button onClick={() => removeNomination(movie.imdbID)}>Remove</button>
-                </div>
-            )
-        })} */}
-        
-      <button>Remove nomination</button>
+      <h3>Nominations</h3>
+      <Box sx={{
+        height: "100vh",
+        padding: "25px",
+      }} bg="muted">
+        {nominated.map((movie) => {
+          return (
+            <MovieCard key={movie.imdbID} mb={3}>
+              <MovieCard.Image image={movie.Poster} />
+              <Box p={3}>
+                <MovieCard.Title>{movie.Title}</MovieCard.Title>
+                <MovieCard.Description>
+                  Release on {movie.Year}
+                </MovieCard.Description>
+                <MovieCard.Button onClick={() => deleteNomination(movie)}>
+                  Remove nomination
+                </MovieCard.Button>
+              </Box>
+            </MovieCard>
+          );
+        })}
+      </Box>
     </div>
   );
 }
