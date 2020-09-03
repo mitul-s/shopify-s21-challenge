@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-import { Box, Label, Input, Button } from "theme-ui";
+import { Box, Label, Input } from "theme-ui";
 
 const SearchBar = ({ setQuery }) => {
 

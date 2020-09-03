@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import MovieCard from './core/MovieCard';
 
-import { Image, Box } from "theme-ui";
+import { Box } from "theme-ui";
 
 const Nominations = ({ nominated, setNominated }) => {
 

@@ -6,8 +6,7 @@ import './App.css';
 import SearchBar from './components/SearchBar';
 import SearchResults from "./components/SearchResults";
 import Nomintations from "./components/Nominations";
-import { Grid, Box, Heading, Container } from "theme-ui";
-import { useReducer } from 'react';
+import { Box, Heading, Container } from "theme-ui";
 
 function App() {
   
@@ -15,21 +14,22 @@ function App() {
   const [results, setResults] = useState([]);
   const [ nominated, setNominated ] = useState([]);
 
-  async function getMovies() {
 
-    const url = `https://www.omdbapi.com/?s=${query}&apikey=${process.env.REACT_APP_API_KEY}`;
-
-    try {
-      const res = await axios(url);
-      console.log(res.data);
-      setResults(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   useEffect(() => {
-    getMovies();
+      async function getMovies() {
+        const url = `https://www.omdbapi.com/?s=${query}&apikey=${process.env.REACT_APP_API_KEY}`;
+
+        try {
+          const res = await axios(url);
+          console.log(res.data);
+          setResults(res.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      getMovies();
   }, [query]);
 
 
@@ -71,12 +71,4 @@ function App() {
 }
 
 export default App;
-
-
-{/* <div class="with-sidebar">
-  <div> <!-- intermediary wrapper -->
-    <div><!-- non-sidebar --></div>
-    <div><!-- sidebar --></div>
-  </div>
-</div> */}
   

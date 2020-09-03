@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import MovieCard from "./core/MovieCard";
-import { Box, Card, Heading, Text, Button, Grid } from "theme-ui";
+import { Grid } from "theme-ui";
 
 
 const SearchResults = ({ nominated, setNominated, ...props }) => {
@@ -13,7 +13,7 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
         } else {
             console.log("do nothing..")
         }
-    }, [])
+    }, [setNominated])
 
     function validateNomination(movie) {
 
