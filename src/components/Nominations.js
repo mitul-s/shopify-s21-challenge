@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import MovieCard from './core/MovieCard';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-
-import { Box } from "theme-ui";
+import { Box, Grid } from "theme-ui";
 
 const Nominations = ({ nominated, setNominated }) => {
 
@@ -23,6 +20,33 @@ const Nominations = ({ nominated, setNominated }) => {
         localStorage.setItem("nominations", JSON.stringify(nominated));
     }, [nominated])
 
+    const renderNominations = () => {
+      if(nominated.length) {
+        return nominated.map((movie) => {
+          return (
+            <MovieCard
+              key={movie.imdbID}
+              // style={{ margin: "0 auto", marginBottom: "25px" }}
+              image={movie.Poster}
+            >
+              {/* <MovieCard.Image image={movie.Poster} /> */}
+              <MovieCard.ContainerB>
+                <MovieCard.Title>{movie.Title}</MovieCard.Title>
+                <MovieCard.Description>
+                  Released in {movie.Year.substring(0,4)}
+                </MovieCard.Description>
+                <MovieCard.Button onClick={() => deleteNomination(movie)}>
+                   Remove nomination
+                </MovieCard.Button>
+              </MovieCard.ContainerB>
+            </MovieCard>
+          );
+        });
+      } else {
+        return <h1>Hmm, you haven't made any nominations yet!</h1>
+      }
+    }
+
   return (
     <div>
       <h3>Nominations</h3>
@@ -31,28 +55,13 @@ const Nominations = ({ nominated, setNominated }) => {
           minHeight: "100vh",
           height: "auto",
           padding: "25px",
+          maxWidth: ""
         }}
         bg="#f4f7f6"
       >
-        {nominated.map((movie) => {
-          return (
-            <MovieCard
-              key={movie.imdbID}
-              style={{ margin: "0 auto", marginBottom: "25px" }}
-            >
-              <MovieCard.Image image={movie.Poster} />
-              <MovieCard.ContainerB>
-                <MovieCard.Title>{movie.Title}</MovieCard.Title>
-                <MovieCard.Description>
-                  Release on {movie.Year}
-                </MovieCard.Description>
-                <MovieCard.Button onClick={() => deleteNomination(movie)}>
-                  <FontAwesomeIcon icon={faTimesCircle} /> Remove nomination
-                </MovieCard.Button>
-              </MovieCard.ContainerB>
-            </MovieCard>
-          );
-        })}
+        <Grid columns={[1]}>
+        {renderNominations()}
+        </Grid>
       </Box>
     </div>
   );

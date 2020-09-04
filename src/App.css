@@ -11,7 +11,7 @@
 }
 
 .sidebar {
-  flex-basis: 20rem;
+  flex-basis: 15rem;
   flex-grow: 100;
 }
 
@@ -19,5 +19,5 @@
   /* ↓ grow from nothing */
   flex-basis: 0;
   flex-grow: 999;
-  min-width: calc(50% - 1rem);
+  min-width: calc(60% - 1rem);
 }

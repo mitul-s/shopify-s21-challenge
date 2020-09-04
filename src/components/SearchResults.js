@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import MovieCard from "./core/MovieCard";
 import { Grid, Box } from "theme-ui";
 
+import { AiOutlinePlus } from "react-icons/ai";
+
 
 const SearchResults = ({ nominated, setNominated, ...props }) => {
 
@@ -35,25 +37,30 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
             return (
               <Grid
                 gap={3}
-                columns={[3, "1fr 1fr 1fr"]}
+                columns={[1, 2, 2, 3]}
                 sx={{ backgroundColor: "#f4f7f6", padding: "25px" }}
               >
                 {props.results.Search.map((movie) => {
                   return (
-                    <MovieCard>
-                      <MovieCard.Image image={movie.Poster}></MovieCard.Image>
+                    <MovieCard image={movie.Poster}>
+                      {/* <MovieCard.Image image={movie.Poster}></MovieCard.Image> */}
                       <MovieCard.ContainerB>
                         <MovieCard.Title>{movie.Title}</MovieCard.Title>
                         <MovieCard.Description>
-                          Released on {movie.Year}
+                          Released in {movie.Year.substring(0, 4)}
                         </MovieCard.Description>
                         <MovieCard.Button
                           onClick={() => validateNomination(movie)}
-                          disabled={nominated.some((i) =>
-                            i.imdbID.includes(movie.imdbID)
-                          )}
+                          disabled={
+                            nominated.some(
+                              (i) =>
+                                i.imdbID.includes(movie.imdbID) ||
+                                nominated.length === 5
+                            ) && true
+                          }
                         >
-                          Nominate
+                          Nominate{" "}
+                          <AiOutlinePlus/>
                         </MovieCard.Button>
                       </MovieCard.ContainerB>
                     </MovieCard>
