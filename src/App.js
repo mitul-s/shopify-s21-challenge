@@ -12,7 +12,7 @@ import Confetti from 'react-confetti';
 
 function App() {
   
-  const [query, setQuery] = useState("fear");
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [ nominated, setNominated ] = useState([]);
 

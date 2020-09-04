@@ -17,14 +17,18 @@ const SearchBar = ({ setQuery }) => {
 
     return (
       <Box as="form" onSubmit={() => handleSubmit()}>
-        <Box sx={{ width: "92%", marginRight: "25px", display: "inline-block" }}>
-          <Label mb={1} color="#d6f8f3" htmlFor="searchMovies">Movie title</Label>
+        <Box
+          sx={{ width: "92%", marginRight: "25px", display: "inline-block" }}
+        >
+          <Label mb={1} color="#d6f8f3" htmlFor="searchMovies">
+            Movie title
+          </Label>
           <Input
             name="searchMovies"
-            placeholder="Search movie..."
-            defaultValue="hello"
+            placeholder="Search for a movie to nominate..."
             ref={register({ required: true })}
             onChange={handleChange}
+            bg="#ffffff"
           />
           {errors.searchMovies && <p>Required</p>}
         </Box>
