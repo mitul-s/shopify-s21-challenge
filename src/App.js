@@ -10,7 +10,7 @@ import { Box, Heading, Container } from "theme-ui";
 
 function App() {
   
-  const [query, setQuery] = useState("hello");
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [ nominated, setNominated ] = useState([]);
 
@@ -34,10 +34,10 @@ function App() {
 
 
   useEffect(() => {
-    if(nominated.length >= 5){
+    if(nominated.length === 5){
       alert('yay')
     }
-  })
+  }, [nominated])
 
   return (
     <Box>
