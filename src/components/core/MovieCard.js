@@ -4,20 +4,15 @@ import { Box, Heading, Text, Flex, Button } from "theme-ui";
 export default function MovieCard({ image, children, title, ...restProps }) {
     return (
       <Box
-        {...restProps}
+      variant="movieCard"
         sx={{
-          backgroundColor: "white",
-          borderRadius: "5px",
-          // border: "1px solid red",
-          boxShadow:
-            "0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16)",
-          width: "",
-          height: ["200px", "300px"],
-          backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 255, 0.25), rgba(0, 0, 0, 0.9)), url('${image}')`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 255, 0.15), rgba(0, 0, 0, 0.9)), url('${
+            image !== "N/A"
+              ? image
+              : "https://www.csa.iisc.ac.in/newweb/wp-content/uploads/2019/11/image-not-available.jpg"
+          }')`,
         }}
+        {...restProps}
       >
         {children}
       </Box>
@@ -51,25 +46,7 @@ MovieCard.Description = function MovieCardDescription({ children, ...restProps }
 
 MovieCard.Button = function MovieCardButton({ children, ...restProps }) {
     return (
-      <Button
-        sx={{
-          width: "100%",
-          borderRadius: "4px",
-          backgroundColor: "#008060",
-          color: "white",
-          transition: "150ms ease",
-          "&:disabled": {
-            backgroundColor: "black",
-          },
-          "&:hover": {
-            "&:not([disabled])": {
-              backgroundColor: "",
-              transform: "translateY(-1.5px)"
-            },
-          },
-        }}
-        {...restProps}
-      >
+      <Button variant="nominate" {...restProps}>
         {children}
       </Button>
     );

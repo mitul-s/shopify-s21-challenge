@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 
 import MovieCard from "./core/MovieCard";
-import { Grid, Box } from "theme-ui";
-
-import { AiOutlinePlus } from "react-icons/ai";
+import { Grid, Box, Container, Heading } from "theme-ui";
 
 import one from "../illustrations/drawkit-grape-pack-illustration-1.svg";
 import seven from "../illustrations/drawkit-grape-pack-illustration-7.svg";
@@ -45,7 +43,7 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
               >
                 {props.results.Search.map((movie) => {
                   return (
-                    <MovieCard image={movie.Poster}>
+                    <MovieCard key={movie.imdbID} image={movie.Poster}>
                       <MovieCard.ContainerB>
                         <MovieCard.Title>{movie.Title}</MovieCard.Title>
                         <MovieCard.Description>
@@ -61,8 +59,7 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
                             ) && true
                           }
                         >
-                          Nominate{" "}
-                          <AiOutlinePlus/>
+                          Nominate
                         </MovieCard.Button>
                       </MovieCard.ContainerB>
                     </MovieCard>
@@ -97,11 +94,15 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
     return (
       <div>
         {props.query ? (
-          <h3>Results for "{props.query}"</h3>
+          <Heading as="h3" color="secondaryText" mb={4}>
+            Results for "{props.query}"
+          </Heading>
         ) : (
-          <h3>Search for a movie</h3>
+          <Heading as="h3" color="secondaryText" mb={4}>
+            Search for movies to nominate
+          </Heading>
         )}
-        <Box sx={{ padding: "3rem 2rem", bg: "#f2f2f2" }}>{renderResults()}</Box>
+        <Container variant="coreBox">{renderResults()}</Container>
       </div>
     );
 }
