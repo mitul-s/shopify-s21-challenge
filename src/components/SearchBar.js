@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-import { Button, Box, Label, Input } from "theme-ui";
+import { Box, Label, Input } from "theme-ui";
 
 const SearchBar = ({ setQuery }) => {
 
@@ -10,29 +10,28 @@ const SearchBar = ({ setQuery }) => {
         setQuery(e.target.value)
     }
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      setQuery(e.target.value);
-    }
-
     return (
-      <Box as="form" onSubmit={() => handleSubmit()}>
-        <Box
-          sx={{ width: "92%", marginRight: "25px", display: "inline-block" }}
-        >
-          <Label mb={1} color="#d6f8f3" htmlFor="searchMovies">
+      <Box as="form">
+          <Label mb={1} color="#d6f8f3" htmlFor="search">
             Movie title
           </Label>
           <Input
-            name="searchMovies"
+            name="search"
             placeholder="Search for a movie to nominate..."
             ref={register({ required: true })}
             onChange={handleChange}
             bg="#ffffff"
+            color="black"
+            sx={{
+              border: "1px solid transparent",
+              outline: "none",
+              transition: "150ms ease",
+              "&:focus": {
+                boxShadow: "0 0 0 2px #008060",
+              },
+            }}
           />
-          {errors.searchMovies && <p>Required</p>}
-        </Box>
-        <Button sx={{ display: "inline" }}>Search</Button>
+          {errors.search && <p>Required</p>}
       </Box>
     );
 }

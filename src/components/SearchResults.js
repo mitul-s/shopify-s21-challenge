@@ -5,6 +5,10 @@ import { Grid, Box } from "theme-ui";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
+import one from "../illustrations/drawkit-grape-pack-illustration-1.svg";
+import seven from "../illustrations/drawkit-grape-pack-illustration-7.svg";
+import EmptyState from "./core/EmptyState";
+
 
 const SearchResults = ({ nominated, setNominated, ...props }) => {
 
@@ -38,12 +42,10 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
               <Grid
                 gap={3}
                 columns={[1, 2, 2, 3]}
-                sx={{ backgroundColor: "#f4f7f6", padding: "25px" }}
               >
                 {props.results.Search.map((movie) => {
                   return (
                     <MovieCard image={movie.Poster}>
-                      {/* <MovieCard.Image image={movie.Poster}></MovieCard.Image> */}
                       <MovieCard.ContainerB>
                         <MovieCard.Title>{movie.Title}</MovieCard.Title>
                         <MovieCard.Description>
@@ -70,8 +72,22 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
             );
         } else { 
             return (
-              <Box sx={{ backgroundColor: "muted", padding: "25px", height: "100vh" }}>
-                No results found
+              <Box>
+                {props.query.length >= 3 && props.results.Error ? (
+                  <EmptyState 
+                    img={seven} 
+                    imgWidth="40%"
+                    txt="No movie found"
+                    caption="We can't find a movie with that title, try another?" 
+                  />
+                ) : (
+                  <EmptyState
+                    img={one}
+                    imgWidth="40%"
+                    txt="Find a movie to nominate"
+                    caption="Try using the search bar above to find movies"
+                  />
+                )}
               </Box>
             );
         }
@@ -83,9 +99,9 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
         {props.query ? (
           <h3>Results for "{props.query}"</h3>
         ) : (
-          <h3>Search for a movie!</h3>
+          <h3>Search for a movie</h3>
         )}
-        <div>{renderResults()}</div>
+        <Box sx={{ padding: "3rem 2rem", bg: "#f2f2f2" }}>{renderResults()}</Box>
       </div>
     );
 }

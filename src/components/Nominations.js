@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import MovieCard from './core/MovieCard';
 
 import { Box, Grid } from "theme-ui";
+import EmptyState from './core/EmptyState';
+
+import seventeen from "../illustrations/drawkit-grape-pack-illustration-17.svg";
 
 const Nominations = ({ nominated, setNominated }) => {
 
@@ -26,10 +29,8 @@ const Nominations = ({ nominated, setNominated }) => {
           return (
             <MovieCard
               key={movie.imdbID}
-              // style={{ margin: "0 auto", marginBottom: "25px" }}
               image={movie.Poster}
             >
-              {/* <MovieCard.Image image={movie.Poster} /> */}
               <MovieCard.ContainerB>
                 <MovieCard.Title>{movie.Title}</MovieCard.Title>
                 <MovieCard.Description>
@@ -43,25 +44,29 @@ const Nominations = ({ nominated, setNominated }) => {
           );
         });
       } else {
-        return <h1>Hmm, you haven't made any nominations yet!</h1>
+        return (
+          <EmptyState 
+            img={seventeen} 
+            imgWidth="60%" 
+            txt="Make a nomination" 
+            caption="Any movie nominations you make will appear here."
+          />
+        )
       }
     }
 
   return (
     <div>
-      <h3>Nominations</h3>
+      <h3>My Nominations</h3>
       <Box
         sx={{
-          minHeight: "100vh",
           height: "auto",
-          padding: "25px",
-          maxWidth: ""
+          padding: "3rem 2rem",
+          maxWidth: "",
         }}
-        bg="#f4f7f6"
+        bg="#f2f2f2"
       >
-        <Grid columns={[1]}>
-        {renderNominations()}
-        </Grid>
+        <Grid columns={[1]}>{renderNominations()}</Grid>
       </Box>
     </div>
   );

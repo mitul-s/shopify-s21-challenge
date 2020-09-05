@@ -6,7 +6,7 @@ import './App.css';
 import SearchBar from './components/SearchBar';
 import SearchResults from "./components/SearchResults";
 import Nomintations from "./components/Nominations";
-import { Message, Box, Heading, Container } from "theme-ui";
+import { Message, Box, Heading, Container, Text } from "theme-ui";
 
 import Confetti from 'react-confetti';
 
@@ -67,9 +67,10 @@ function App() {
           color="white"
           sx={{ width: ["95%", "85%", "75%"], margin: "0 auto" }}
         >
-          <Heading as="h1" mb={3}>
-            The Shoppies
-          </Heading>
+          <Box mb={3}>
+            <Heading as="h1">The Shoppies</Heading>
+            <Text>Movie awards for entrepreneurs</Text>
+          </Box>
           <SearchBar setQuery={setQuery} />
         </Box>
         <Confetti

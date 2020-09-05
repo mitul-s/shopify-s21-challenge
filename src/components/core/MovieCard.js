@@ -20,7 +20,6 @@ export default function MovieCard({ image, children, title, ...restProps }) {
         }}
       >
         {children}
-        {/* <MovieCard.Button>Hello</MovieCard.Button> */}
       </Box>
     );
 }
@@ -59,13 +58,14 @@ MovieCard.Button = function MovieCardButton({ children, ...restProps }) {
           backgroundColor: "#008060",
           color: "white",
           transition: "150ms ease",
-          '&:disabled': {
-            backgroundColor: "black"
+          "&:disabled": {
+            backgroundColor: "black",
           },
-          '&:hover': {
-            '&:not([disabled])':{
-              backgroundColor: "secondary", 
-            }
+          "&:hover": {
+            "&:not([disabled])": {
+              backgroundColor: "",
+              transform: "translateY(-1.5px)"
+            },
           },
         }}
         {...restProps}
@@ -74,20 +74,3 @@ MovieCard.Button = function MovieCardButton({ children, ...restProps }) {
       </Button>
     );
 }
-
-// MovieCard.Image = function MovieCardImage({ image, ...restProps }) {
-//     return (
-//       <Box
-//         sx={{
-//           height: "350px",
-//           backgroundImage: `url('${image}')`,
-//           backgroundRepeat: "no-repeat",
-//           backgroundSize: "cover",
-//           backgroundPosition: "center",
-//           // borderTopLeftRadius: "3px",
-//           // borderTopRightRadius: "3px",
-//         }}
-//         {...restProps}
-//       ></Box>
-//     );
-// }
