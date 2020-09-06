@@ -2,9 +2,9 @@ export default {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   fonts: {
     body:
-      '"Helvetica Neue", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+      '"Heebo", "Helvetica Neue", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     heading:
-      '"Helvetica Neue", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+      '"Poppins","Helvetica Neue", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     monospace: "Menlo, monospace",
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
@@ -18,30 +18,30 @@ export default {
     heading: 1.25,
   },
   colors: {
-    text: "#454f5b",
+    text: "#ffffff",
     secondaryText: "#212326",
-    background: "#fff",
-    primary: "#5c6ac4",
+    background: "#f3fcf4",
+    primary: "#054a49",
     secondary: "#006fbb",
-    highlight: "#ffffff",
-    muted: "#f2f2f2",
+    highlight: "#67ccc3",
+    muted: "#e6e6e6",
     gray: "#dfe3e8",
-    accent: "#dfe3e8",
-    darken: "#00044c",
-    darkest: "#001429",
-    outline: "#006fbb",
+    accent: "#d6f8f3",
+    darken: "#004c3f",
+    darkest: "#002e25",
+    outline: "#008060",
     modes: {
       dark: {
-        text: "#ffffff",
+        text: "#454f5b",
         secondaryText: "#212326",
-        primary: "#054a49",
-        outline: "#008060",
-        darken: "#004c3f",
-        background: "#f3fcf4",
-        accent: "#d6f8f3",
-        highlight: "#67ccc3",
-        muted: "#e6e6e6",
-        darkest: "#002e25",
+        primary: "#5c6ac4",
+        outline: "#006fbb",
+        darken: "#00044c",
+        background: "#fff",
+        accent: "#dfe3e8",
+        highlight: "#ffffff",
+        muted: "#f2f2f2",
+        darkest: "#001429",
       },
     },
   },
@@ -140,8 +140,8 @@ export default {
   },
   text: {
     title: {
-      fontSize: "3rem"
-    }
+      fontSize: "3rem",
+    },
   },
   buttons: {
     nominate: {
@@ -180,6 +180,7 @@ export default {
       height: "45px",
       outline: "none",
       transition: "300ms ease",
+      boxShadow: "0 0 0.1075em 0.1075em white",
       "&:hover": {
         backgroundColor: "primary",
         border: "1px solid",

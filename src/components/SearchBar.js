@@ -11,7 +11,7 @@ const SearchBar = ({ setQuery }) => {
     }
 
     return (
-      <Box as="form">
+      <Box as="form" onSubmit={(e) => e.preventDefault()}>
           <Label mb={1} color="highlight" htmlFor="search">
             Movie title
           </Label>

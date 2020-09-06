@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 
 import MovieCard from "./core/MovieCard";
-import { Grid, Box, Container, Heading } from "theme-ui";
+import EmptyState from "./core/EmptyState";
+import { Grid, Box, Container, Heading, Spinner, Flex } from "theme-ui";
 
+// Empty state illustrations
 import one from "../illustrations/drawkit-grape-pack-illustration-1.svg";
 import seven from "../illustrations/drawkit-grape-pack-illustration-7.svg";
-import EmptyState from "./core/EmptyState";
 
 
 const SearchResults = ({ nominated, setNominated, ...props }) => {
 
+  // If setNominations is run, update nominations local storage as well 
     useEffect(() => {
         let data = localStorage.getItem("nominations")
         if(data) {
@@ -19,22 +21,25 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
         }
     }, [setNominated])
 
+    // Validate if movie is already included in nominations
     function validateNomination(movie) {
-
         let checkNominations = nominated.some((i) => i.imdbID.includes(movie.imdbID));
         if(checkNominations) {
-            alert('looks like you already nominated this dude.')
+            // This alert should never appear due to disable button
+            alert('Hm, looks like you already nominated this dude.')
         } else {
             addNomination(movie)
         }
     }
     
+    // Add a nomination to state and local storage
     function addNomination(movie) {
         setNominated([...nominated, movie])
         localStorage.setItem("nominations", JSON.stringify([...nominated, movie]));
     }
 
     function renderResults() {
+      // If API has provided good response, render items
         if(props.results.Search !== undefined) {
             return (
               <Grid
@@ -67,26 +72,34 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
                 })}
               </Grid>
             );
+        } // if there's a long time in loading and user has typed search, then render spinner 
+        else if(props.query.length > 0 && !props.results.Search && !props.results.Error) {
+          return (
+            <Flex variant="centerBox">
+              <Spinner />
+            </Flex>
+          )
         } else { 
-            return (
-              <Box>
-                {props.query.length >= 3 && props.results.Error ? (
-                  <EmptyState 
-                    img={seven} 
-                    imgWidth="40%"
-                    txt="No movie found"
-                    caption="We can't find a movie with that title, try another?" 
-                  />
-                ) : (
-                  <EmptyState
-                    img={one}
-                    imgWidth="40%"
-                    txt="Find a movie to nominate"
-                    caption="Try using the search bar above to find movies"
-                  />
-                )}
-              </Box>
-            );
+          return (
+            // Depending on queries, display empty states
+            <Box>
+              {props.query.length >= 3 && props.results.Error ? (
+                <EmptyState 
+                  img={seven} 
+                  imgWidth="40%"
+                  txt="No movie found"
+                  caption="We can't find a movie with that title, try another?" 
+                />
+              ) : (
+                <EmptyState
+                  img={one}
+                  imgWidth="40%"
+                  txt="Find a movie to nominate"
+                  caption="Try using the search bar above to find movies"
+                />
+              )}
+            </Box>
+          );
         }
     }
 
@@ -102,7 +115,9 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
             Search for movies to nominate
           </Heading>
         )}
-        <Container variant="coreBox">{renderResults()}</Container>
+        <Container variant="coreBox">
+          {renderResults()}
+        </Container>
       </div>
     );
 }

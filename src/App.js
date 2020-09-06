@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
-import { useColorMode } from "theme-ui";
 
-import './App.css';
+import './index.css';
 
 import SearchBar from './components/SearchBar';
 import SearchResults from "./components/SearchResults";
 import Nomintations from "./components/Nominations";
-import { Message, Box, Heading, Container, Text, IconButton, Flex } from "theme-ui";
+
+import { Message, Box, Heading, Container, Text, IconButton, useColorMode, Flex } from "theme-ui";
 
 import Confetti from 'react-confetti';
 
@@ -18,8 +18,8 @@ function App() {
   const [results, setResults] = useState([]);
   const [nominated, setNominated] = useState([]);
 
-  // TOGGLE APP THEME
-  const [colorMode, setColorMode] = useColorMode();
+  // TOGGLE APP THEME HOOK
+  const [ colorMode, setColorMode ] = useColorMode();
 
   // CONFETTI STATES
   const [height, setHeight] = useState(null);
@@ -48,7 +48,10 @@ function App() {
   // GETTING MOVIES DEPENDING QUERY INPUT
   useEffect(() => {
     async function getMovies() {
+      
       const url = `https://www.omdbapi.com/?s=${query}&type=movie&apikey=${process.env.REACT_APP_API_KEY}`;
+      
+      // GET MOVIES
 
       try {
         const res = await axios(url);
@@ -71,7 +74,9 @@ function App() {
         >
           <Flex sx={{ alignItems: "center", mb: 3 }}>
             <Box>
-              <Heading as="h1" variant="title">The Shoppies</Heading>
+              <Heading as="h1" variant="title">
+                The Shoppies
+              </Heading>
               <Text color="accent">Movie awards for entrepreneurs</Text>
             </Box>
             <IconButton
