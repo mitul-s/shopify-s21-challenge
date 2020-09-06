@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import MovieCard from "./core/MovieCard";
 import EmptyState from "./core/EmptyState";
-import { Grid, Box, Container, Heading } from "theme-ui";
+import { Grid, Box, Container, Heading, Spinner, Flex } from "theme-ui";
 
 // Empty state illustrations
 import one from "../illustrations/drawkit-grape-pack-illustration-1.svg";
@@ -39,39 +39,47 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
     }
 
     function renderResults() {
-      // If API has provided good response, render items
-        if(props.results.Search !== undefined) {
-            return (
-              <Grid
-                gap={3}
-                columns={[1, 2, 2, 3]}
-              >
-                {props.results.Search.map((movie) => {
-                  return (
-                    <MovieCard key={movie.imdbID} image={movie.Poster} alt="movie poster">
-                        <MovieCard.Title>{movie.Title}</MovieCard.Title>
-                        <MovieCard.Description>
-                          Released in {movie.Year.substring(0, 4)}
-                        </MovieCard.Description>
-                        <MovieCard.Button
-                          aria-label="nominate"
-                          onClick={() => validateNomination(movie)}
-                          disabled={
-                            nominated.some(
-                              (i) =>
-                                i.imdbID.includes(movie.imdbID) ||
-                                nominated.length === 5
-                            ) && true
-                          }
-                        >
-                          Nominate
-                        </MovieCard.Button>
-                    </MovieCard>
-                  );
-                })}
-              </Grid>
-            )
-        } else { 
+      if(props.loading === true) {
+        return (
+          <Flex variant="centerBox">
+            <Spinner />
+          </Flex>
+        );
+      } else if(props.results.Search !== undefined) {
+        // If API has provided good response, render items
+        return (
+          <Grid
+            gap={3}
+            columns={[1, 2, 2, 3]}
+          >
+            {props.results.Search.map((movie) => {
+              return (
+                <MovieCard key={movie.imdbID} image={movie.Poster} alt="movie poster">
+                    <MovieCard.Title>{movie.Title}</MovieCard.Title>
+                    <MovieCard.Description>
+                      Released in {movie.Year.substring(0, 4)}
+                    </MovieCard.Description>
+                    <MovieCard.Button
+                      aria-label="nominate"
+                      onClick={() => validateNomination(movie)}
+                      disabled={
+                        nominated.some(
+                          (i) =>
+                            i.imdbID.includes(movie.imdbID) ||
+                            nominated.length === 5
+                        ) && true
+                      }
+                    >
+                      Nominate
+                    </MovieCard.Button>
+                </MovieCard>
+              );
+            })}
+          </Grid>
+        )
+      } else if(!props.results.Error && props.error) {
+        return <Heading color="primary">Hm, looks like there was an API error. Refresh and try again.</Heading>
+      } else { 
           return (
             <Box>
               {props.query.length >= 3 && props.results.Error ? (
@@ -103,7 +111,7 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
           </Heading>
         ) : (
           <Heading as="h2" variant="subHeading">
-            Search for movies to nominate
+            Search results
           </Heading>
         )}
         <Container variant="coreBox">

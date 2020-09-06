@@ -1,63 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from "axios";
+import React, { useState, useRef } from 'react';
 
+// THEME UI COMPONENTS + CONFETTI
+import { Message, Box, Heading, Container, Text, Flex } from "theme-ui";
+import Confetti from "react-confetti";
+
+// INTERNAL COMPONENTS
 import SearchBar from './components/SearchBar';
 import SearchResults from "./components/SearchResults";
 import Nomintations from "./components/Nominations";
 import ToggleThemeBtn from "./components/core/ToggleThemeBtn";
 
-import { Message, Box, Heading, Container, Text, Flex } from "theme-ui";
-
-import Confetti from 'react-confetti';
+// CUSTOM HOOKS
+import useConfetti from './hooks/useConfetti';
+import useRequest from "./hooks/useRequest";
 
 function App() {
   
   // CORE APP RELATED STATES
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
   const [nominated, setNominated] = useState([]);
 
-  // CONFETTI STATES
-  const [height, setHeight] = useState(null);
-  const [width, setWidth] = useState(null);
-  const [pop, setPop] = useState(false);
-  const [run, setRun] = useState(false);
+  // CUSTOM HOOK TO TRIGGER CONFETTI 
   const confettiRef = useRef(null);
+  const { height, width, pop, run } = useConfetti(nominated, confettiRef);
 
-  // SETTING CONFETTI CONTAINER
-  useEffect(() => {
-    setHeight(confettiRef.current.clientHeight);
-    setWidth(confettiRef.current.clientWidth);
-  }, []);
-
-  // WATCHING NOMINATED ARRAY TO POP CONFETTI
-  useEffect(() => {
-    if (nominated.length === 5) {
-      setRun(true);
-      setPop(true);
-      setTimeout(() => {
-        setPop(false);
-      }, 5000);
-    }
-  }, [nominated]);
-
-  // GETTING MOVIES DEPENDING QUERY INPUT
-  useEffect(() => {
-    async function getMovies() {
-      
-      // API REQUEST FOR MOVIES ONLY WITH QUERY
-      const url = `https://www.omdbapi.com/?s=${query}&type=movie&apikey=${process.env.REACT_APP_API_KEY}`;
-      
-      // GET MOVIES
-      try {
-        const res = await axios(url);
-        setResults(res.data);
-      } catch (error) {
-        console.log("There was an API error:" + error);
-      }
-    }
-    getMovies();
-  }, [query]);
+  // CUSTOM HOOK TO MAKE API REQUESTS
+  const { value, loading, error } = useRequest(query);
 
   return (
     <Box ref={confettiRef}>
@@ -84,14 +52,17 @@ function App() {
       <Container p={4} sx={{ margin: "0 auto", width: ["99%", "85%", "75%"] }}>
         {nominated.length === 5 && (
           <Message mb={4}>
-            And that's it! Thank you for your five nominations.
+            Thank you for your five nominations! See you at the ceremony{" "}
+            <span role="img" aria-label="smiling emoji">😄</span>
           </Message>
         )}
         <div className="with-sidebar">
           <div>
             <div className="not-sidebar">
               <SearchResults
-                results={results}
+                results={value}
+                loading={loading}
+                error={error}
                 query={query}
                 setNominated={setNominated}
                 nominated={nominated}
