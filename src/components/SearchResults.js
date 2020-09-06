@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import MovieCard from "./core/MovieCard";
 import EmptyState from "./core/EmptyState";
-import { Grid, Box, Container, Heading, Spinner, Flex } from "theme-ui";
+import { Grid, Box, Container, Heading } from "theme-ui";
 
 // Empty state illustrations
 import one from "../illustrations/drawkit-grape-pack-illustration-1.svg";
@@ -70,17 +70,9 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
                   );
                 })}
               </Grid>
-            );
-        } // if there's a long time in loading and user has typed search, then render spinner 
-        else if(props.query.length >= 3 && !props.results.Search && !props.results.Error) {
-          return (
-            <Flex variant="centerBox">
-              <Spinner />
-            </Flex>
-          )
+            )
         } else { 
           return (
-            // Depending on queries, display empty states
             <Box>
               {props.query.length >= 3 && props.results.Error ? (
                 <EmptyState 
@@ -114,7 +106,9 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
             Search for movies to nominate
           </Heading>
         )}
-        <Container variant="coreBox">{renderResults()}</Container>
+        <Container variant="coreBox">
+         {renderResults()}
+        </Container>
       </div>
     );
 }
