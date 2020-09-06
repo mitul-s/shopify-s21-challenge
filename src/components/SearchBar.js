@@ -16,6 +16,7 @@ const SearchBar = ({ setQuery }) => {
             Movie title
           </Label>
           <Input
+            id="search"
             name="search"
             placeholder="Hunger Games"
             ref={register({ required: true })}

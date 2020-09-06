@@ -4,7 +4,7 @@ import { Box, Heading, Text, Flex, Button } from "theme-ui";
 export default function MovieCard({ image, children, title, ...restProps }) {
     return (
       <Box
-      variant="movieCard"
+        variant="movieCard"
         sx={{
           backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 255, 0.15), rgba(0, 0, 0, 0.9)), url('${
             image !== "N/A"
@@ -14,13 +14,13 @@ export default function MovieCard({ image, children, title, ...restProps }) {
         }}
         {...restProps}
       >
-        {children}
+        <MovieCard.ContainerB>{children}</MovieCard.ContainerB>
       </Box>
     );
 }
 
 MovieCard.ContainerB = function MovieCardContainerB({ children, ...restProps }) {
-    return <Flex sx={{ alignContent: "flex-end", justifyContent: "flex-end", flexDirection: "column", color: "white", padding: "16px", height: "inherit" }}>{children}</Flex>
+    return <Flex sx={{ alignContent: "flex-end", justifyContent: "flex-end", flexDirection: "column", color: "white", padding: "16px", height: "inherit" }} {...restProps}>{children}</Flex>
 }
 
 MovieCard.Title = function MovieCardTitle({ children, ...restProps }) {
@@ -46,7 +46,7 @@ MovieCard.Description = function MovieCardDescription({ children, ...restProps }
 
 MovieCard.Button = function MovieCardButton({ children, ...restProps }) {
     return (
-      <Button variant="nominate" {...restProps}>
+      <Button aria-label="nominate" variant="nominate" {...restProps}>
         {children}
       </Button>
     );

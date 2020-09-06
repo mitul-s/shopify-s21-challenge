@@ -5,6 +5,7 @@ export default function EmptyState({ img, caption, txt, imgWidth, ...restProps }
   return (
     <Flex variant="centerBox" color="secondaryText" {...restProps}>
       <Image 
+        alt="empty state illustrations"
         src={img} 
         sx={{ 
           marginBottom: "50px", 

@@ -142,6 +142,11 @@ export default {
     title: {
       fontSize: "3rem",
     },
+    subHeading: {
+      fontSize: 3,
+      color: "secondaryText",
+      marginBottom: 4
+    }
   },
   buttons: {
     nominate: {

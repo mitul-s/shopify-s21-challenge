@@ -48,13 +48,13 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
               >
                 {props.results.Search.map((movie) => {
                   return (
-                    <MovieCard key={movie.imdbID} image={movie.Poster}>
-                      <MovieCard.ContainerB>
+                    <MovieCard key={movie.imdbID} image={movie.Poster} alt="movie poster">
                         <MovieCard.Title>{movie.Title}</MovieCard.Title>
                         <MovieCard.Description>
                           Released in {movie.Year.substring(0, 4)}
                         </MovieCard.Description>
                         <MovieCard.Button
+                          aria-label="nominate"
                           onClick={() => validateNomination(movie)}
                           disabled={
                             nominated.some(
@@ -66,14 +66,13 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
                         >
                           Nominate
                         </MovieCard.Button>
-                      </MovieCard.ContainerB>
                     </MovieCard>
                   );
                 })}
               </Grid>
             );
         } // if there's a long time in loading and user has typed search, then render spinner 
-        else if(props.query.length > 0 && !props.results.Search && !props.results.Error) {
+        else if(props.query.length >= 3 && !props.results.Search && !props.results.Error) {
           return (
             <Flex variant="centerBox">
               <Spinner />
@@ -107,17 +106,15 @@ const SearchResults = ({ nominated, setNominated, ...props }) => {
     return (
       <div>
         {props.query ? (
-          <Heading as="h3" color="secondaryText" mb={4}>
+          <Heading as="h2" variant="subHeading">
             Results for "{props.query}"
           </Heading>
         ) : (
-          <Heading as="h3" color="secondaryText" mb={4}>
+          <Heading as="h2" variant="subHeading">
             Search for movies to nominate
           </Heading>
         )}
-        <Container variant="coreBox">
-          {renderResults()}
-        </Container>
+        <Container variant="coreBox">{renderResults()}</Container>
       </div>
     );
 }
