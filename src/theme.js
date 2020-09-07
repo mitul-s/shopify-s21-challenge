@@ -142,7 +142,8 @@ export default {
     title: {
       fontSize: "3rem",
       fontWeight: "800",
-      letterSpacing: "-0.2px"
+      letterSpacing: "-0.2px",
+      color: "white",
     },
     subHeading: {
       fontSize: 3,
