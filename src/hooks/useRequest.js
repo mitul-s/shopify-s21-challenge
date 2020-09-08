@@ -17,18 +17,26 @@ export default function useRequest(query) {
         const getData = async () => {
         const url = `https://www.omdbapi.com/?s=${query}&type=movie&apikey=${process.env.REACT_APP_API_KEY}`;
             try {
+                // Spinner loading state - waiting for API response
                 setLoading(true);
+                // Getting data.. 
                 const res = await axios(url);
+                // Setting data into the results
                 if(!ignore) setValue(res.data);
             } catch (error) {
+                // Errors from API not responding
                 setError(error);
                 console.log(error);
             } finally {
+                // No longer loading, render results
                 setLoading(false);
             }
         }
+
         getData();
+
         return (() => {ignore = true;});
+        
     }, [query])
 
     return { value, loading, error };
